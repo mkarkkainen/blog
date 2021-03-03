@@ -5,7 +5,6 @@ import UserHeader from "./UserHeader";
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +22,7 @@ const App = () => {
       <CssBaseline />
       <Container maxWidth="lg">
         <Header />
-        <main>
+        <main className={classes.mainGrid}>
           <UserHeader />
           <PostList />
         </main>
