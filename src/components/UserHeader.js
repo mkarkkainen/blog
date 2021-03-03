@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { Typography } from '@material-ui/core';
+
 class UserHeader extends React.Component {
   render() {
     const { user } = this.props;
@@ -9,7 +11,7 @@ class UserHeader extends React.Component {
       return null;
     }
 
-    return <div className="header">{user.name}</div>;
+    return <Typography className="header"><strong>{user.name}</strong></Typography>;
   }
 }
 

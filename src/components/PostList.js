@@ -3,35 +3,65 @@ import { connect } from "react-redux";
 import { fetchPostsAndUsers } from "../actions";
 import UserHeader from "./UserHeader";
 
+import { Grid, Typography, Card, CardContent} from '@material-ui/core'
+import FaceIcon from '@material-ui/icons/Face';
+import { withStyles } from "@material-ui/core/styles";
+import { Face } from "@material-ui/icons";
+
+
+const styles = theme => ({
+  card: {
+    display: 'flex',
+  },
+  cardDetails: {
+    flex: 1,
+  },
+  cardMedia: {
+    width: 160,
+  },
+  heading: {
+    textTransform: "capitalize"
+  },
+  post: {
+    margin: 8
+  }
+})
+
+//str.charAt(0).toUpperCase() + str.slice(1)
+
 class PostList extends React.Component {
   componentDidMount() {
     this.props.fetchPostsAndUsers();
   }
 
   renderList() {
+    const { classes } = this.props;
     return this.props.posts.map((post) => {
       return (
-        <div
-          style={{ border: "2px solid black", margin: 8 }}
-          className="item"
-          key={post.id}
-        >
-          <i className="large middle aligned icon user" />
-          <div className="content">
-            <div className="description">
-              <h2>{post.title}</h2>
-              <p>{post.body}</p>
-            </div>
-            <UserHeader userId={post.userId} />
-          </div>
-        </div>
+            <Grid item
+              xs={12} md={8}
+              className={classes.post}
+              key={post.id}
+            >
+            <Card className={classes.card}>
+              <div className={classes.cardDetails}>
+                <CardContent>
+                  <FaceIcon />
+                  <Typography className={classes.heading} variant="h6" gutterBottom>{post.title}</Typography>
+                  <Typography gutterBottom>{(post.body).charAt(0).toUpperCase() + (post.body).slice(1)}</Typography>
+                  <UserHeader userId={post.userId} />
+                </CardContent>
+              </div>
+            </Card>
+
+            </Grid>
       );
     });
   }
 
   render() {
     console.log(this.props.posts);
-    return <div className="ui relaxed divided list">{this.renderList()}</div>;
+    return <Grid container justify="center" alignItems="center">{this.renderList()}</Grid>;
   }
 }
 
@@ -39,4 +69,4 @@ const mapStateToProps = (state) => {
   return { posts: state.posts };
 };
 
-export default connect(mapStateToProps, { fetchPostsAndUsers })(PostList);
+export default connect(mapStateToProps, { fetchPostsAndUsers })(withStyles(styles)(PostList));

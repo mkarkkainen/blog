@@ -1,12 +1,34 @@
 import React from "react";
 import PostList from "./PostList";
+import Header from "./Header";
 import UserHeader from "./UserHeader";
 
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import { Container } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  mainGrid: {
+    marginTop: theme.spacing(3),
+  },
+}));
+
 const App = () => {
+
+  const classes = useStyles();
+
   return (
-    <div className="ui container">
-      <PostList />
-    </div>
+    <>
+      <CssBaseline />
+      <Container maxWidth="lg">
+        <Header />
+        <main>
+          <UserHeader />
+          <PostList />
+        </main>
+      </Container>
+    </>
   );
 };
 
